@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Visualize</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
       .dropbtn {
         background-color: #4CAF50;
@@ -70,5 +72,17 @@
           </div>
         </div>
     </nav>
+    <div id="plot"></div>
+
+    <select id="selDataset">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Dropdown button
+      </button>
+      <option value="dataset1">DataSet1</option>
+      <option value="dataset2">DataSet2</option>
+    </select>
+  
+    <script src="plot.js"></script>
 </body>
 </html>
+
