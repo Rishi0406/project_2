@@ -3,12 +3,10 @@ let xl = [];
 let yl = [];
 Plotly.d3.json(url, function (figure) {
   let data = figure;
- console.log(data);
   for (var i = 0; i < data.length; i++) {
-    xl.push(data[i].bay_id)
+    xl.push(data[i].bay_id).toString()
     yl.push(data[i].durationminutes)
   }
-  console.log(xl,yl);
   let trace = {
     x: xl,
     y: yl,
