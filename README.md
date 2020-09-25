@@ -1,4 +1,4 @@
-# project_2
+# Project_2
 
 Our group undertook an analysis concerning the occupation of parking spaces in the CBD of Melbourne, using retrived data from parking sensors in this localisation. This data was accessed from the City of Melbourne open data website (https://data.melbourne.vic.gov.au/), using API.
 
