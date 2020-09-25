@@ -1,41 +1,26 @@
-function buildRacesByClassBarChart() {
-  const url = "/api/<area>";  
-
-  d3.json(url).then(function(response) {
-
-    console.log(response);
-    const data = response;
-
-//     var traces = Array();
-
-//     grouped_data.forEach(element => {      
-//       traces.push({
-//         x: element.map(d => d.char_class),
-//         y: element.map(d => d.total),
-//         name: element[0].race,
-//         type: 'bar'
-//       });
-//     });
-    
-//     var layout = {
-//       barmode: 'stack',
-//       height: 400,
-//       width: 500
-//     };
-    
-//     Plotly.newPlot('races-by-class-plot', traces, layout);
-   });
+const url = "/api/docklands";
+let xl = [];
+let yl = [];
+Plotly.d3.json(url, function (figure) {
+  let data = figure;
+ console.log(data);
+  for (var i = 0; i < data.length; i++) {
+    xl.push(data[i].bay_id)
+    yl.push(data[i].durationminutes)
   }
-buildRacesByClassBarChart();
-
-// let trace1 = {
-//   x: [],
-//   y: [],
-//   mode: "lines"
-// };
-
-// data.forEach(function(val) {
-//   trace1.x.push(val["bay_id"]);
-//   trace1.y.push(val["durationminutes"]);
-// });
-// Plotly.newPlot('plot', [trace1]);
+  console.log(xl,yl);
+  let trace = {
+    x: xl,
+    y: yl,
+    marker: {
+      color: '#37536D'
+    },
+    type: 'bar'
+  };
+  let layout = {
+    title: 'Duration per parking space',
+    yaxis: { title: 'Parking bay' },
+    xaxis: { title: 'Duration' }
+  };
+  Plotly.plot('plot', [trace], layout, { displayModeBar: false });
+})

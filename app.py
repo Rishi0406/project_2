@@ -36,6 +36,10 @@ def home():
 def map():
     return render_template("map.html")
 
+@app.route("/visualize")
+def plot():
+    return render_template("visualize.html")   
+
 
 @app.route("/api/<area>")
 def area(area):
