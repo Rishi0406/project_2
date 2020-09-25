@@ -30,16 +30,20 @@ db = SQLAlchemy(app)
 def home():
     return render_template("index.html")
 
-@app.route("/hi")
-def hi():
-    return "hello"
 
-# Query the database and send the jsonified results
-@app.route("/api/sensor")
-def pals():
-    results = db.engine.execute("SELECT * from \"Area\"")
+@app.route("/api/area")
+def area():
+    text = """
+        SELECT p.bay_id, d.durationminutes
+        FROM "Parking_bay" as p
+        LEFT JOIN "Parking_duration" as d
+        ON p.bay_id = d.bay_id
+        LEFT JOIN "Area" as y
+        ON p.areaname_id = y.area_id
+        where y.area_name = 'Docklands'
+        """
+    results = db.engine.execute(text)
     return jsonify([dict(row) for row in results])
-
 
 
 if __name__ == "__main__":
