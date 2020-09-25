@@ -1,6 +1,8 @@
 # import necessary libraries
 import os
 import numpy as np
+from sqlalchemy.sql import text
+from sqlalchemy import bindparam
 from flask import (
     Flask,
     render_template,
@@ -31,18 +33,19 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/api/area")
-def area():
-    text = """
+@app.route("/api/<area>")
+def area(area):
+    results = db.engine.execute(text("""
         SELECT p.bay_id, d.durationminutes
         FROM "Parking_bay" as p
         LEFT JOIN "Parking_duration" as d
         ON p.bay_id = d.bay_id
         LEFT JOIN "Area" as y
         ON p.areaname_id = y.area_id
-        where y.area_name = 'Docklands'
-        """
-    results = db.engine.execute(text)
+        where y.area_name = :area
+    """).bindparams(
+        area=area.lower()
+    ))
     return jsonify([dict(row) for row in results])
 
 
