@@ -6,5 +6,5 @@ Due to the character of the data, it was agreed that the best method to share an
 
 In addition to this, we have created another plot using Plotly. As this plot is filtered by area name, it will show the average duration and minutes that each car spent in each parking space as corresponding to the required area. 
 
-In order to achieve our objectives for this project, we created a big SQL data base, in fact joining two data bases. This was evidenced utilising Sqlalchemy, as the group connected the database with Flask, in which one can see our data analysis work and plots. 
+In order to achieve our objectives for this project, we created a big SQL database, in fact joining two databases. This was evidenced utilising Sqlalchemy, as the group connected the database with Flask, in which one can see our data analysis work and plots. 
 
