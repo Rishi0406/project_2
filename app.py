@@ -40,6 +40,15 @@ def map():
 def plot():
     return render_template("visualize.html")   
 
+@app.route("/filter")
+def filter():
+        results = db.engine.execute(text("""
+        SELECT area_name
+        FROM "Area"
+    """)
+    )
+        return jsonify([dict(row) for row in results]) 
+
 
 @app.route("/api/<area>")
 def area(area):
