@@ -40,6 +40,10 @@ def map():
 def plot():
     return render_template("visualize.html")   
 
+@app.route("/data")
+def data():
+    return render_template("loaddata.html")
+
 @app.route("/filter")
 def filter():
         results = db.engine.execute(text("""
