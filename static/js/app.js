@@ -3,8 +3,8 @@ function populateFilter() {
   // our <select> from the database. 
   const url = "/filter";
 
-  d3.json(url).then(function(response) {
-    
+  d3.json(url).then(function (response) {
+
     var filerOptions = ["All"];
     filerOptions = filerOptions.concat(response.map(d => d.area_name));
     console.log(filerOptions);
@@ -23,43 +23,39 @@ function populateFilter() {
 function refreshCharts(event) {
   // event.target will refer tp the selector
   // from which we will get the selected option
-  var selectedValue = d3.select(event.target).property('value');
-
+  var selectedValue = d3.select("#sel-filter").property('value');
+  console.log(selectedValue);
   // With the selectedValue we can refresh the charts
   // filtering if needed. 
-  buildRacesByClassBarChart(selectedValue);
+  buildareaBarChart(selectedValue);
 }
-function buildRacesByClassBarChart(selectedArea) {
-  var url = "api/area";
+function buildareaBarChart(selectedArea) {
+  var url = `api/${selectedArea}`;
   let xl = [];
   let yl = [];
-  if (selectedArea != undefined) {
-    url = `api/area?area=${selectedArea}`;
-  }
-    Plotly.d3.json(url, function (figure) {
-      let data = figure;
-      for (var i = 0; i < data.length; i++) {
-        xl.push(data[i].bay_id).toString()
-        yl.push(data[i].durationminutes)
-        console.log(xl)
-      }
+  Plotly.d3.json(url, function (figure) {
+    let data = figure;
+    for (var i = 0; i < data.length; i++) {
+      xl.push(data[i].bay_id)
+      yl.push(data[i].durationminutes)
+    }
 
-      let trace = {
-        x: xl,
-        y: yl,
-        marker: {
-          color: '#37536D'
-        },
-        type: 'bar'
-      };
-      let layout = {
-        title: 'Duration per parking space',
-        yaxis: { title: 'Parking bay' },
-        xaxis: { title: 'Duration' }
-      };
-      Plotly.plot('plot', [trace], layout, { displayModeBar: false });
+    let trace = {
+      x: xl,
+      y: yl,
+      marker: {
+        color: '#37536D'
+      },
+      type: 'bar'
+    };
+    let layout = {
+      title: 'Duration per parking space',
+      yaxis: { title: 'Duration' },
+      xaxis: { title: 'Parking bay' , type: "category"}
+    };
+    Plotly.plot('plot', [trace], layout, { displayModeBar: false });
 
   });
 }
 populateFilter();
-buildRacesByClassBarChart();
+buildareaBarChart();
